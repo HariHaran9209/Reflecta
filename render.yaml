@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: reflecta-backend
+    env: python
+    rootDir: project
+    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput
+    startCommand: gunicorn project.wsgi:application --bind 0.0.0.0:$PORT
+    envVars:
+      - key: DJANGO_DEBUG
+        value: "False"
+      - key: CORS_ALLOW_ALL_ORIGINS
+        value: "False"
+      # - key: MONGO_URI
+      #   value: <your mongodb+srv://...>
+      # Set these in the Render dashboard after deploy:
+      # - DJANGO_SECRET_KEY
+      # - DJANGO_ALLOWED_HOSTS (e.g. reflecta-backend.onrender.com)
+      # - CORS_ALLOWED_ORIGINS (e.g. https://reflecta-frontend.onrender.com)
+      # - CSRF_TRUSTED_ORIGINS (e.g. https://reflecta-backend.onrender.com)
+
+  - type: web
+    name: reflecta-frontend
+    env: static
+    rootDir: frontend
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        # Set to your backend URL after deploy, e.g. https://reflecta-backend.onrender.com
+        value: "http://127.0.0.1:8000"

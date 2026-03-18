@@ -40,22 +40,47 @@ function AdminDashboard() {
 
     const chaptersBySubject = {
         "101": [
-            { value: "10101", label: "Integrals" },
-            { value: "10102", label: "Differentiation" },
+            { value: "10101", label: "Relations and Functions" },
+            { value: "10102", label: "Inverse Trigonometric Functions" },
             { value: "10103", label: "Matrices" },
-            { value: "10104", label: "Probability" },
+            { value: "10104", label: "Determinants" },
+            { value: "10105", label: "Continuity and Differentiability" },
+            { value: "10106", label: "Application of Derivatives" },
+            { value: "10107", label: "Integrals" },
+            { value: "10108", label: "Application of Integrals" },
+            { value: "10109", label: "Differential Equations" },
+            { value: "10110", label: "Vector Algebra" },
+            { value: "10111", label: "Three Dimensional Geometry" },
+            { value: "10112", label: "Linear Programming" },
+            { value: "10113", label: "Probability" }
         ],
         "102": [
-            { value: "10201", label: "Kinematics" },
-            { value: "10202", label: "Laws of Motion" },
-            { value: "10203", label: "Work, Energy & Power" },
-            { value: "10204", label: "Electrostatics" },
+            { value: "10201", label: "Electric Charges and Fields" },
+            { value: "10202", label: "Electrostatic Potential and Capacitance" },
+            { value: "10203", label: "Current Electricity" },
+            { value: "10204", label: "Moving Charge and Magnetism" },
+            { value: "10205", label: "Magnetism and Matter" },
+            { value: "10206", label: "Electromagnetic Induction" },
+            { value: "10207", label: "Alternating Current" },
+            { value: "10208", label: "Electromagnetic Wave" },
+            { value: "10209", label: "Ray Optics and Optical Instruments" },
+            { value: "10210", label: "Wave Optics" },
+            { value: "10211", label: "Dual Nature of Radiation and Matter" },
+            { value: "10212", label: "Atoms" },
+            { value: "10213", label: "Nuclei" },
+            { value: "10214", label: "Semiconductor and Electronics Devices" } 
         ],
         "103": [
-            { value: "10301", label: "Atomic Structure" },
-            { value: "10302", label: "Chemical Bonding" },
-            { value: "10303", label: "Thermodynamics" },
-            { value: "10304", label: "Organic Basics" },
+            { value: "10301", label: "Solutions" },
+            { value: "10302", label: "Electrochemistry" },
+            { value: "10303", label: "Chemical Kinetics" },
+            { value: "10304", label: "The d- and f-Block Elements" },
+            { value: "10305", label: "Coordination Compounds" },
+            { value: "10306", label: "Haloalkanes and Haloarenes" },
+            { value: "10307", label: "Alcohols, Phenols and Ethers" },
+            { value: "10308", label: "Aldehydes, Ketones and Carboxylic Acids" },
+            { value: "10309", label: "Amines" },
+            { value: "10310", label: "Biomolecules" }
         ],
     }
 

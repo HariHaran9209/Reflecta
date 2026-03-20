@@ -11,7 +11,7 @@ function Questions() {
     const [ isCorrect, setIsCorrect ] = useState(null)
     const [ wrongAttempts, setWrongAttempts ] = useState([])
     const rawApiBaseUrl = import.meta.env.VITE_API_BASE_URL
-    const API_BASE_URL = rawApiBaseUrl || "http://127.0.0.1:8000"
+    const API_BASE_URL = rawApiBaseUrl || "https://reflecta-backend-ceyc.onrender.com"
     const apiBaseMisconfigured =
         !!rawApiBaseUrl &&
         rawApiBaseUrl.includes("127.0.0.1") &&

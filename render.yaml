@@ -9,7 +9,7 @@ services:
       - key: DJANGO_DEBUG
         value: "False"
       - key: CORS_ALLOW_ALL_ORIGINS
-        value: "False"
+        value: "True"
       # - key: MONGO_URI
       #   value: <your mongodb+srv://...>
       # Set these in the Render dashboard after deploy:

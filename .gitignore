@@ -3,11 +3,13 @@ env/
 __pycache__/
 *.pyc
 .env
+project/db.sqlite3
 
 frontend/node_modules/
 **/node_modules/
 frontend/dist/
 **/dist/
+media/
 
 .DS_Store
 Thumbs.db

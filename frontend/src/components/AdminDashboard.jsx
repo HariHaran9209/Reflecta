@@ -117,7 +117,7 @@ function AdminDashboard() {
         formData.append("difficulty", difficulty)
         formData.append("type", questionType)
         formData.append("marks", marks)
-        formData.append("correctOption", questionType === "MCQ" ? correctOption : "")
+        formData.append("correctOption", (questionType === "MCQ" || questionType === "AR") ? correctOption : "")
 
         formData.append("questionImage", questionImage)
         formData.append("explanationImage", explanationImage)
@@ -220,21 +220,6 @@ function AdminDashboard() {
                         </select>
                     </div>
 
-                    {questionType === "SHORT" && (
-                        <div className="admin-field">
-                            <label className="admin-label" htmlFor="shortMarks">Short answer marks</label>
-                            <select
-                                id="shortMarks"
-                                className="admin-input"
-                                value={shortAnswerMarks}
-                                onChange={(e) => setShortAnswerMarks(parseInt(e.target.value, 10))}
-                            >
-                                <option value={2}>2 marks</option>
-                                <option value={3}>3 marks</option>
-                            </select>
-                        </div>
-                    )}
-
                     <div className="admin-field">
                         <label className="admin-label" htmlFor="difficulty">Difficulty</label>
                         <select id="difficulty" className="admin-input" onChange={(e) => setDiffulty(e.target.value)}>
@@ -244,24 +229,54 @@ function AdminDashboard() {
                         </select>
                     </div>
 
-                    {questionType === "MCQ" && (
-                        <div className="admin-field">
-                            <label className="admin-label" htmlFor="correctOption">Correct option</label>
-                            <select
-                                id="correctOption"
-                                className="admin-input"
-                                value={correctOption}
-                                onChange={(e) => setCorrectOption(e.target.value)}
-                            >
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                                <option value="C">C</option>
-                                <option value="D">D</option>
-                            </select>
-                        </div>
-                    )}
+                    <div className="admin-field">
+                        {(questionType === "MCQ" || questionType === "AR") && (
+                            <>
+                                <label className="admin-label" htmlFor={questionType === "AR" ? "correctOptionAR" : "correctOption"}>
+                                    Correct option
+                                </label>
+                                <select
+                                    id={questionType === "AR" ? "correctOptionAR" : "correctOption"}
+                                    className="admin-input"
+                                    value={correctOption}
+                                    onChange={(e) => setCorrectOption(e.target.value)}
+                                >
+                                    {questionType === "MCQ" ? (
+                                        <>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <option value="A">Both A and R are correct and R is the correct explanation of A</option>
+                                            <option value="B">Both A and R are correct but R is not the correct explanation of A</option>
+                                            <option value="C">A is correct but R is incorrect</option>
+                                            <option value="D">A is incorrect but R is correct</option>
+                                        </>
+                                    )}
+                                </select>
+                            </>
+                        )}
 
-                    <div className="admin-field admin-field--hint">
+                        {questionType === "SHORT" && (
+                            <>
+                                <label className="admin-label" htmlFor="shortMarks">Short answer marks</label>
+                                <select
+                                    id="shortMarks"
+                                    className="admin-input"
+                                    value={shortAnswerMarks}
+                                    onChange={(e) => setShortAnswerMarks(parseInt(e.target.value, 10))}
+                                >
+                                    <option value={2}>2 marks</option>
+                                    <option value={3}>3 marks</option>
+                                </select>
+                            </>
+                        )}
+                    </div>
+
+                    <div className="admin-field">
                         <div className="admin-hint">
                             <div className="admin-hint-title">Tip</div>
                             <div className="admin-hint-body">
@@ -295,7 +310,7 @@ function AdminDashboard() {
                     </div>
                 </div>
 
-                <div className="admin-actions">
+                <div className="admin-actions-grid">
                     <button className="admin-button" type="submit">Upload Question</button>
                     <div className="admin-meta">
                         Marks: <span className="admin-meta-strong">{marks}</span>

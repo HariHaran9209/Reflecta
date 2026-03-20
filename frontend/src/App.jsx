@@ -7,7 +7,7 @@ import Register from './components/Register'
 import AdminDashboard from './components/AdminDashboard'
 import BossDashboard from './components/BossDashboard'
 import Questions from './components/Questions'
-import './css/app.css'
+import './css/App.css'
 
 function AppRoutes() {
   const { isAuthenticated, canAccessBoss, canAccessAdmin, canAccessStudent } = useAuth()

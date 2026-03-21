@@ -32,20 +32,10 @@ function Login() {
                 localStorage.setItem('token', data.token)
                 localStorage.setItem('user', JSON.stringify(data.user))
                 
-                // Redirect based on role using React Router
-                switch(data.user.role) {
-                    case 'BOSS':
-                        navigate('/boss')
-                        break
-                    case 'ADMIN':
-                        navigate('/admin')
-                        break
-                    case 'STUDENT':
-                        navigate('/questions')
-                        break
-                    default:
-                        navigate('/questions')
-                }
+                // Force page reload to trigger AuthContext to read new localStorage values
+                window.location.href = data.user.role === 'BOSS' ? '/boss' : 
+                                     data.user.role === 'ADMIN' ? '/admin' : 
+                                     '/questions'
             } else {
                 setError(data.error || 'Login failed')
             }

@@ -87,7 +87,6 @@ function AdminDashboard() {
     const chapterOptions = subjectId ? (chaptersBySubject[subjectId] ?? []) : []
 
     useEffect(() => {
-        // Reset chapter whenever subject changes
         setChapterId("")
     }, [subjectId])
 
@@ -110,7 +109,6 @@ function AdminDashboard() {
         e.preventDefault()
 
         const formData = new FormData();
-
         formData.append("subjectId", subjectId)
         formData.append("chapterId", chapterId)
         formData.append("year", year)
@@ -118,7 +116,6 @@ function AdminDashboard() {
         formData.append("type", questionType)
         formData.append("marks", marks)
         formData.append("correctOption", (questionType === "MCQ" || questionType === "AR") ? correctOption : "")
-
         formData.append("questionImage", questionImage)
         formData.append("explanationImage", explanationImage)
 
@@ -138,184 +135,213 @@ function AdminDashboard() {
     return (
         <div className="admin-container">
             <form onSubmit={handleSubmit} className="admin-card">
+
+                {/* ── LEFT SIDEBAR ── */}
                 <div className="admin-card-header">
-                    <div>
-                        <h2 className="admin-title">Upload Question</h2>
-                        <p className="admin-subtitle">Add a new question with images and metadata.</p>
-                    </div>
-                    <div className="admin-badge">Admin</div>
-                </div>
-
-                <div className="admin-grid">
-                    <div className="admin-field">
-                        <label className="admin-label" htmlFor="subjectId">Subject</label>
-                        <select
-                            id="subjectId"
-                            className="admin-input"
-                            value={subjectId}
-                            onChange={(e) => setSubjectId(e.target.value)}
-                            disabled={subjectLocked}
-                        >
-                            <option value="" disabled>Select subject</option>
-                            {subjectOptions.map((s) => (
-                                <option key={s.value} value={s.value}>{s.label}</option>
-                            ))}
-                        </select>
-                        {subjectLocked && (
-                            <button
-                                type="button"
-                                className="admin-link"
-                                onClick={() => {
-                                    setSubjectLocked(false)
-                                    setSubjectId("")
-                                    setChapterId("")
-                                }}
-                            >
-                                Change subject
-                            </button>
-                        )}
-                    </div>
-
-                    <div className="admin-field">
-                        <label className="admin-label" htmlFor="chapterId">Chapter</label>
-                        <select
-                            id="chapterId"
-                            className="admin-input"
-                            value={chapterId}
-                            onChange={(e) => setChapterId(e.target.value)}
-                            disabled={!subjectId}
-                        >
-                            <option value="" disabled>
-                                {subjectId ? "Select chapter" : "Select subject first"}
-                            </option>
-                            {chapterOptions.map((c) => (
-                                <option key={c.value} value={c.value}>{c.label}</option>
-                            ))}
-                        </select>
-                    </div>
-
-                    <div className="admin-field">
-                        <label className="admin-label" htmlFor="year">Year</label>
-                        <input
-                            id="year"
-                            className="admin-input"
-                            placeholder="e.g. 2024"
-                            onChange={(e) => setYear(e.target.value)}
-                        />
-                    </div>
-
-                    <div className="admin-field">
-                        <label className="admin-label" htmlFor="questionType">Type</label>
-                        <select
-                            id="questionType"
-                            className="admin-input"
-                            value={questionType}
-                            onChange={(e) => setQuestionType(e.target.value)}
-                        >
-                            <option value="MCQ">MCQ</option>
-                            <option value="SHORT">Short answer</option>
-                            <option value="CASE">Case-study</option>
-                            <option value="LONG">Long answer</option>
-                            <option value="AR">Assertion and reason</option>
-                        </select>
-                    </div>
-
-                    <div className="admin-field">
-                        <label className="admin-label" htmlFor="difficulty">Difficulty</label>
-                        <select id="difficulty" className="admin-input" onChange={(e) => setDiffulty(e.target.value)}>
-                            <option value="1">Easy</option>
-                            <option value="2">Medium</option>
-                            <option value="3">Hard</option>
-                        </select>
-                    </div>
-
-                    <div className="admin-field">
-                        {(questionType === "MCQ" || questionType === "AR") && (
-                            <>
-                                <label className="admin-label" htmlFor={questionType === "AR" ? "correctOptionAR" : "correctOption"}>
-                                    Correct option
-                                </label>
-                                <select
-                                    id={questionType === "AR" ? "correctOptionAR" : "correctOption"}
-                                    className="admin-input"
-                                    value={correctOption}
-                                    onChange={(e) => setCorrectOption(e.target.value)}
-                                >
-                                    {questionType === "MCQ" ? (
-                                        <>
-                                            <option value="A">A</option>
-                                            <option value="B">B</option>
-                                            <option value="C">C</option>
-                                            <option value="D">D</option>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <option value="A">Both A and R are correct and R is the correct explanation of A</option>
-                                            <option value="B">Both A and R are correct but R is not the correct explanation of A</option>
-                                            <option value="C">A is correct but R is incorrect</option>
-                                            <option value="D">A is incorrect but R is correct</option>
-                                        </>
-                                    )}
-                                </select>
-                            </>
-                        )}
-
-                        {questionType === "SHORT" && (
-                            <>
-                                <label className="admin-label" htmlFor="shortMarks">Short answer marks</label>
-                                <select
-                                    id="shortMarks"
-                                    className="admin-input"
-                                    value={shortAnswerMarks}
-                                    onChange={(e) => setShortAnswerMarks(parseInt(e.target.value, 10))}
-                                >
-                                    <option value={2}>2 marks</option>
-                                    <option value={3}>3 marks</option>
-                                </select>
-                            </>
-                        )}
-                    </div>
-
-                    <div className="admin-field">
+                    <div className="admin-sidebar-top">
+                        <div className="admin-badge">Admin</div>
+                        <div>
+                            <h2 className="admin-title">Upload<br />Question</h2>
+                            <p className="admin-subtitle">Add a new question with images and metadata.</p>
+                        </div>
                         <div className="admin-hint">
                             <div className="admin-hint-title">Tip</div>
                             <div className="admin-hint-body">
-                                Upload clear images. PNG/JPG works best.
+                                Upload clear images. PNG/JPG works best. Make sure the question is legible before submitting.
                             </div>
+                        </div>
+                    </div>
+
+                    <div className="admin-sidebar-bottom">
+                        <div className="admin-marks-label">Marks assigned</div>
+                        <div className="admin-marks-display">
+                            <span className="admin-marks-value">{marks}</span>
+                            <span className="admin-marks-unit">mark{marks !== 1 ? 's' : ''}</span>
                         </div>
                     </div>
                 </div>
 
-                <div className="admin-divider" />
+                {/* ── RIGHT FORM PANEL ── */}
+                <div className="admin-form-body">
+                    <div className="admin-grid">
 
-                <div className="admin-files">
-                    <div className="admin-field">
-                        <label className="admin-label" htmlFor="questionImage">Question image</label>
-                        <input
-                            id="questionImage"
-                            className="admin-input admin-input--file"
-                            type="file"
-                            onChange={(e) => setQuestionImage(e.target.files[0])}
-                        />
+                        {/* Subject */}
+                        <div className="admin-field">
+                            <label className="admin-label" htmlFor="subjectId">Subject</label>
+                            <select
+                                id="subjectId"
+                                className="admin-input"
+                                value={subjectId}
+                                onChange={(e) => setSubjectId(e.target.value)}
+                                disabled={subjectLocked}
+                            >
+                                <option value="" disabled>Select subject</option>
+                                {subjectOptions.map((s) => (
+                                    <option key={s.value} value={s.value}>{s.label}</option>
+                                ))}
+                            </select>
+                            {subjectLocked && (
+                                <button
+                                    type="button"
+                                    className="admin-link"
+                                    onClick={() => {
+                                        setSubjectLocked(false)
+                                        setSubjectId("")
+                                        setChapterId("")
+                                    }}
+                                >
+                                    Change subject
+                                </button>
+                            )}
+                        </div>
+
+                        {/* Chapter */}
+                        <div className="admin-field admin-field--wide">
+                            <label className="admin-label" htmlFor="chapterId">Chapter</label>
+                            <select
+                                id="chapterId"
+                                className="admin-input"
+                                value={chapterId}
+                                onChange={(e) => setChapterId(e.target.value)}
+                                disabled={!subjectId}
+                            >
+                                <option value="" disabled>
+                                    {subjectId ? "Select chapter" : "Select subject first"}
+                                </option>
+                                {chapterOptions.map((c) => (
+                                    <option key={c.value} value={c.value}>{c.label}</option>
+                                ))}
+                            </select>
+                        </div>
+
+                        {/* Year */}
+                        <div className="admin-field">
+                            <label className="admin-label" htmlFor="year">Year</label>
+                            <input
+                                id="year"
+                                className="admin-input"
+                                placeholder="e.g. 2024"
+                                onChange={(e) => setYear(e.target.value)}
+                            />
+                        </div>
+
+                        {/* Type */}
+                        <div className="admin-field">
+                            <label className="admin-label" htmlFor="questionType">Type</label>
+                            <select
+                                id="questionType"
+                                className="admin-input"
+                                value={questionType}
+                                onChange={(e) => setQuestionType(e.target.value)}
+                            >
+                                <option value="MCQ">MCQ</option>
+                                <option value="SHORT">Short answer</option>
+                                <option value="CASE">Case-study</option>
+                                <option value="LONG">Long answer</option>
+                                <option value="AR">Assertion and reason</option>
+                            </select>
+                        </div>
+
+                        {/* Difficulty */}
+                        <div className="admin-field">
+                            <label className="admin-label" htmlFor="difficulty">Difficulty</label>
+                            <select id="difficulty" className="admin-input" onChange={(e) => setDiffulty(e.target.value)}>
+                                <option value="1">Easy</option>
+                                <option value="2">Medium</option>
+                                <option value="3">Hard</option>
+                            </select>
+                        </div>
+
+                        {/* Correct option / Short marks */}
+                        <div className="admin-field admin-field--wide">
+                            {(questionType === "MCQ" || questionType === "AR") && (
+                                <>
+                                    <label className="admin-label" htmlFor={questionType === "AR" ? "correctOptionAR" : "correctOption"}>
+                                        Correct option
+                                    </label>
+                                    <select
+                                        id={questionType === "AR" ? "correctOptionAR" : "correctOption"}
+                                        className="admin-input"
+                                        value={correctOption}
+                                        onChange={(e) => setCorrectOption(e.target.value)}
+                                    >
+                                        {questionType === "MCQ" ? (
+                                            <>
+                                                <option value="A">A</option>
+                                                <option value="B">B</option>
+                                                <option value="C">C</option>
+                                                <option value="D">D</option>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <option value="A">Both A and R are correct and R is the correct explanation of A</option>
+                                                <option value="B">Both A and R are correct but R is not the correct explanation of A</option>
+                                                <option value="C">A is correct but R is incorrect</option>
+                                                <option value="D">A is incorrect but R is correct</option>
+                                            </>
+                                        )}
+                                    </select>
+                                </>
+                            )}
+
+                            {questionType === "SHORT" && (
+                                <>
+                                    <label className="admin-label" htmlFor="shortMarks">Short answer marks</label>
+                                    <select
+                                        id="shortMarks"
+                                        className="admin-input"
+                                        value={shortAnswerMarks}
+                                        onChange={(e) => setShortAnswerMarks(parseInt(e.target.value, 10))}
+                                    >
+                                        <option value={2}>2 marks</option>
+                                        <option value={3}>3 marks</option>
+                                    </select>
+                                </>
+                            )}
+                        </div>
                     </div>
 
-                    <div className="admin-field">
-                        <label className="admin-label" htmlFor="explanationImage">Explanation image</label>
-                        <input
-                            id="explanationImage"
-                            className="admin-input admin-input--file"
-                            type="file"
-                            onChange={(e) => setExplanationImage(e.target.files[0])}
-                        />
+                    <div className="admin-divider" />
+
+                    {/* File uploads */}
+                    <div className="admin-files">
+                        <div className="admin-field">
+                            <label className="admin-label" htmlFor="questionImage">Question image</label>
+                            <input
+                                id="questionImage"
+                                className="admin-input admin-input--file"
+                                type="file"
+                                onChange={(e) => setQuestionImage(e.target.files[0])}
+                            />
+                        </div>
+
+                        <div className="admin-field">
+                            <label className="admin-label" htmlFor="explanationImage">Explanation image</label>
+                            <input
+                                id="explanationImage"
+                                className="admin-input admin-input--file"
+                                type="file"
+                                onChange={(e) => setExplanationImage(e.target.files[0])}
+                            />
+                        </div>
                     </div>
                 </div>
 
-                <div className="admin-actions-grid">
+                {/* ── FOOTER / SUBMIT ── */}
+                <div className="admin-form-footer">
+                    <button className="admin-button" type="submit">
+                        Upload Question
+                    </button>
+                </div>
+
+                {/* Mobile-only actions grid (hidden on desktop via CSS) */}
+                <div className="admin-actions-grid" style={{display:'none'}}>
                     <button className="admin-button" type="submit">Upload Question</button>
                     <div className="admin-meta">
                         Marks: <span className="admin-meta-strong">{marks}</span>
                     </div>
                 </div>
+
             </form>
         </div>
     )

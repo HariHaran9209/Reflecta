@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import '../css/Auth.css'
 
 function Login() {
@@ -6,6 +7,7 @@ function Login() {
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
+    const navigate = useNavigate()
     
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://reflecta-backend-ceyc.onrender.com"
 
@@ -30,19 +32,19 @@ function Login() {
                 localStorage.setItem('token', data.token)
                 localStorage.setItem('user', JSON.stringify(data.user))
                 
-                // Redirect based on role
+                // Redirect based on role using React Router
                 switch(data.user.role) {
                     case 'BOSS':
-                        window.location.href = '/boss'
+                        navigate('/boss')
                         break
                     case 'ADMIN':
-                        window.location.href = '/admin'
+                        navigate('/admin')
                         break
                     case 'STUDENT':
-                        window.location.href = '/questions'
+                        navigate('/questions')
                         break
                     default:
-                        window.location.href = '/questions'
+                        navigate('/questions')
                 }
             } else {
                 setError(data.error || 'Login failed')

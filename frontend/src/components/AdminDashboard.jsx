@@ -108,7 +108,7 @@ function AdminDashboard() {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        const formData = new FormData();
+        const formData = new FormData()
         formData.append("subjectId", subjectId)
         formData.append("chapterId", chapterId)
         formData.append("year", year)
@@ -332,13 +332,8 @@ function AdminDashboard() {
                     <button className="admin-button" type="submit">
                         Upload Question
                     </button>
-                </div>
-
-                {/* Mobile-only actions grid (hidden on desktop via CSS) */}
-                <div className="admin-actions-grid" style={{display:'none'}}>
-                    <button className="admin-button" type="submit">Upload Question</button>
-                    <div className="admin-meta">
-                        Marks: <span className="admin-meta-strong">{marks}</span>
+                    <div className="admin-footer-marks">
+                        Marks: <strong>{marks}</strong>
                     </div>
                 </div>
 

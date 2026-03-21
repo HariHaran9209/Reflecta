@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../contexts/AuthContext'
 import '../css/Auth.css'
 
 function Login() {
@@ -28,14 +29,13 @@ function Login() {
             const data = await response.json()
 
             if (response.ok) {
-                // Store token and user info
-                localStorage.setItem('token', data.token)
-                localStorage.setItem('user', JSON.stringify(data.user))
+                login(data.user, data.token)  // ← calls your AuthContext login()
                 
-                // Force page reload to trigger AuthContext to read new localStorage values
-                window.location.href = data.user.role === 'BOSS' ? '/boss' : 
-                                     data.user.role === 'ADMIN' ? '/admin' : 
-                                     '/questions'
+                navigate(
+                    data.user.role === 'BOSS' ? '/boss' :
+                    data.user.role === 'ADMIN' ? '/admin' :
+                    '/questions'
+                )
             } else {
                 setError(data.error || 'Login failed')
             }

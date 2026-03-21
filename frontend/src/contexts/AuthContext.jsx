@@ -1,5 +1,4 @@
 import { createContext, useContext, useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 const AuthContext = createContext()
 
@@ -11,7 +10,6 @@ export function AuthProvider({ children }) {
     const [user, setUser] = useState(null)
     const [token, setToken] = useState(localStorage.getItem('token'))
     const [loading, setLoading] = useState(true)
-    const navigate = useNavigate()
 
     useEffect(() => {
         // Check if user is logged in on app start
@@ -44,7 +42,10 @@ export function AuthProvider({ children }) {
         setToken(null)
         localStorage.removeItem('token')
         localStorage.removeItem('user')
-        navigate('/login')
+        // Use a small delay to ensure state is updated before redirect
+        setTimeout(() => {
+            window.location.href = '/login'
+        }, 100)
     }
 
     const isAuthenticated = () => {
@@ -86,3 +87,4 @@ export function AuthProvider({ children }) {
         </AuthContext.Provider>
     )
 }
+

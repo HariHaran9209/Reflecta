@@ -8,7 +8,8 @@ html {
 
 .admin-management-container {
     max-width: 1400px;
-    margin: 0 40px;   /* fixed spacing instead of auto center */
+    margin: 0 auto;  /* change from 0 40px to 0 auto */
+    padding: 0 40px; /* add padding instead */
 }
 
 .admin-management-header {
@@ -153,16 +154,13 @@ html {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 32px;
+    max-width: 900px; /* cap the width so panels don't stretch infinitely */
 }
 
 .pending-admins-section,
 .approved-admins-section {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 16px;
-    padding: 24px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    backdrop-filter: blur(10px);
+    min-width: 0; /* prevents grid blowout */
+    max-width: 420px; /* each panel has a max width */
 }
 
 .pending-admins-section h3,

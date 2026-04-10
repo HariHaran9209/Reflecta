@@ -6,6 +6,12 @@ html {
     scroll-behavior: smooth;
 }
 
+.app-main {
+    padding: 32px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
 .main-content {
     padding: 32px;
     max-width: 100%;

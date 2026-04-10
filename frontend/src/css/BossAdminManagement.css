@@ -7,9 +7,8 @@ html {
 }
 
 .admin-management-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 24px;
+    max-width: 1400px;
+    margin: 0 40px;   /* fixed spacing instead of auto center */
 }
 
 .admin-management-header {

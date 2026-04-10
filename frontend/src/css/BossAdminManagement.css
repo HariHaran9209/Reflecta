@@ -7,9 +7,9 @@ html {
 }
 
 .admin-management-container {
-    max-width: 1400px;
-    margin: 0 auto;  /* change from 0 40px to 0 auto */
-    padding: 0 40px; /* add padding instead */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
 }
 
 .admin-management-header {
@@ -154,13 +154,13 @@ html {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 32px;
-    max-width: 900px; /* cap the width so panels don't stretch infinitely */
 }
 
 .pending-admins-section,
 .approved-admins-section {
-    min-width: 0; /* prevents grid blowout */
-    max-width: 420px; /* each panel has a max width */
+    min-width: 0;
+    width: 100%;
+    /* no max-width here */
 }
 
 .pending-admins-section h3,

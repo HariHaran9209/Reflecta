@@ -21,8 +21,9 @@ body {
 }
 
 .app-main {
-    min-height: 100vh;
-    padding: 0;
+    padding: 32px;
+    box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 /* Auth pages specific styling */

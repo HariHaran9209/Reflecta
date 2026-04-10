@@ -1,3 +1,11 @@
+* {
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
 .admin-management-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -199,8 +207,8 @@
 }
 
 .admin-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px) scale(1.01);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
 }
 
 .admin-card.pending {
@@ -231,13 +239,23 @@
     color: white;
 }
 
+.approve-btn:hover,
+.stats-btn:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.05);
+}
+
+.create-admin-form input:hover {
+    border-color: rgba(99, 102, 241, 0.3);
+}
+
 .stats-btn {
     background: linear-gradient(135deg, #6366f1, #8b5cf6);
     color: white;
 }
 
 button:active {
-    transform: scale(0.97);
+    transform: scale(0.98);
 }
 
 button:disabled {
@@ -253,6 +271,7 @@ button:disabled {
     justify-content: center;
     align-items: center;
     z-index: 9999;
+    backdrop-filter: blur(6px);
 }
 
 .modal {

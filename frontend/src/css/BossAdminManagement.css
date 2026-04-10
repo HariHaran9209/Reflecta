@@ -6,10 +6,16 @@ html {
     scroll-behavior: smooth;
 }
 
+.main-content {
+    padding: 32px;
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
 .admin-management-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 40px;
 }
 
 .admin-management-header {
@@ -159,8 +165,6 @@ html {
 .pending-admins-section,
 .approved-admins-section {
     min-width: 0;
-    width: 100%;
-    /* no max-width here */
 }
 
 .pending-admins-section h3,

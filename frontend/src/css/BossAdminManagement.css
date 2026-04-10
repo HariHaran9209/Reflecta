@@ -166,11 +166,14 @@ html {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 32px;
+    align-items: start; /* also add this */
 }
 
 .pending-admins-section,
 .approved-admins-section {
     min-width: 0;
+    height: fit-content; /* THIS is the fix */
+    align-self: start;   /* prevents grid from stretching it */
 }
 
 .pending-admins-section h3,
